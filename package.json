@@ -1,0 +1,27 @@
+{
+  "name": "nodejs_shop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -r esm app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yassinsisino/nodejs_shop_training.git"
+  },
+  "author": "yharkati",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yassinsisino/nodejs_shop_training/issues"
+  },
+  "homepage": "https://github.com/yassinsisino/nodejs_shop_training#readme",
+  "dependencies": {
+    "esm": "^3.2.25",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3"
+  }
+}
