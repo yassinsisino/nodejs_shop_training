@@ -1,15 +1,32 @@
-const products = [];
+import fs from 'fs';
+import path from 'path';
 
-module.exports = class Product {
+const p = path.join(path.dirname(process.mainModule.filename), 'data', 'products.json');
+
+export default class Product {
     constructor(p) {
         this.title = p;
     };
 
     save() {
-        products.push(this);
-    }
+        fs.readFile(p, (err, data) =>{
+            let products = [];
+            if (!err){
+                products = JSON.parse(data);
+            }
+            products.push(this);
+            fs.writeFile(p, JSON.stringify(products),(err)=>{
+                console.log(err);
+            });
+        });
+    };
 
-    fetchAll() {
-        return products;
-    }
+    static fetchAll() {
+        fs.readFile(p, (err, data) =>{
+            if (err){
+                return [];
+            }
+            return JSON.parse(data);
+        });
+    };
 };

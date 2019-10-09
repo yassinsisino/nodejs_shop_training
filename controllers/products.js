@@ -1,4 +1,5 @@
-const products = [];
+import Product from '../models/product';
+
 export const getAddProduct = (req, res, next) => {
     res.render('add-product', { 
         pageTitle:'Add product',
@@ -10,16 +11,17 @@ export const getAddProduct = (req, res, next) => {
 };
 
 export const postAddProduct = (req,res,next) => {
-    products.push({title: req.body.title});
+    const product = new Product(req.body.title);
+    product.save();
     res.redirect('/');
 };
 
 export const getProducts = (req, res, next) => {
     res.render('shop', {
-        prods: products, 
+        prods: Product.fetchAll(), 
         pageTitle: 'Shop',
         path: '/',
-        hasProducts: products.length > 0,
+        hasProducts: Product.fetchAll().length > 0,
         activeShop: true,
         productCSS: true
     });
