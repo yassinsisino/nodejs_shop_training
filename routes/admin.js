@@ -1,11 +1,12 @@
 import express from 'express';
 
-import {getAddProduct, postAddProduct} from '../controllers/products';
-
+import {getAddProduct, postAddProduct, getProducts} from '../controllers/admin';
 
 export const router  = express.Router();
-export const products = [];
 
 router.get('/add-product', getAddProduct);
 
+router.get('/products', getProducts);
+
 router.post('/add-product', postAddProduct);
+
