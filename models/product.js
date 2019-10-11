@@ -18,6 +18,7 @@ export default class Product {
         this.imageUrl = imageUrl;
         this.price = price;
         this.description = description;
+        this.id = Math.random().toString();
     };
 
     save() {
@@ -31,5 +32,12 @@ export default class Product {
 
     static fetchAll(cb) {
         getProductsFromFile(cb);
-    }
+    };
+
+    static  findById(id, cb) {
+        getProductsFromFile(products => {
+            const product = (products.find((p) => p.id === id))
+            cb (product);
+        });            
+    };
 };
