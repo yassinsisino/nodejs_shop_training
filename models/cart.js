@@ -6,7 +6,6 @@ const p = path.join(path.dirname(process.mainModule.filename), 'data', 'cart.jso
 export default class Cart {
     static addProduct(id, productPrice) {
         //fetch the previous cart
-        console.log('dans la fonction add product');
         fs.readFile(p, (err, fileContent) => {
             let cart = { products: [], totalPrice: 0 };
             if (!err) {
@@ -27,8 +26,26 @@ export default class Cart {
                 cart.totalPrice = cart.totalPrice + +productPrice;
             }
             fs.writeFile(p, JSON.stringify(cart), err => {
-                console.log(err);
-            })
+                if (err)
+                    console.log(err);
+            });
         });
-    }
+    };
+
+    static deleteProduct(id, productPrice) {
+        fs.readFile(p, (err, fileContent) => {
+            if (err)
+                return;
+            const cart = JSON.parse(fileContent);
+            const product = cart.products.find(prod => prod.id === id);
+            const productQty = product.qty;
+            cart.products = cart.products.filter(prod => prod.id !== id);
+            cart.totalPrice = cart.totalPrice - productPrice * productQty;
+            fs.writeFile(p, JSON.stringify(cart), err => {
+                if (err)
+                    console.log(err);
+            });
+        });
+    };
+
 }
