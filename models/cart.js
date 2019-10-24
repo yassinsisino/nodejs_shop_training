@@ -38,6 +38,8 @@ export default class Cart {
                 return;
             const cart = JSON.parse(fileContent);
             const product = cart.products.find(prod => prod.id === id);
+            if (!product)
+                return;
             const productQty = product.qty;
             cart.products = cart.products.filter(prod => prod.id !== id);
             cart.totalPrice = cart.totalPrice - productPrice * productQty;
@@ -48,4 +50,13 @@ export default class Cart {
         });
     };
 
+    static getCart(cb) {
+        fs.readFile(p, (err, contentFile) => {
+            const cart = JSON.parse(contentFile);
+            if (err)
+                cb(null);
+            else
+                cb(cart);
+        });
+    };
 }

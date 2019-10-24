@@ -1,6 +1,6 @@
 import express from 'express';
 
-import {getAddProduct, postAddProduct, getProducts, getEditProduct, postEditProduct, postDeleteProduct} from '../controllers/admin';
+import {getAddProduct, postAddProduct, getEditProduct, getProducts, postEditProduct, postDeleteProduct} from '../controllers/admin';
 
 export const router  = express.Router();
 // GET methode
