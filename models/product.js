@@ -3,20 +3,21 @@ import mongodb from 'mongodb';
 import { getDb } from '../utils/database';
 
 export default class Product {
-    constructor(title, imageUrl, price, description, id) {
+    constructor(title, imageUrl, price, description, id, prodId) {
         this.title = title;
         this.imageUrl = imageUrl;
         this.price = price;
         this.description = description;
-        this._id = id;
+        this._id = id ? new mongodb.ObjectId(id) : null;
+        this.prodId = prodId;
     };
-
+// /{title: this.title, imageUrl: this.imageUrl, price:this.price, description: this.description}
     save() {
         const db = getDb();
         let prodDb;
         if (this._id) {
             //update product
-            prodDb = db.collection('products').updateOne({ _id: new mongodb.ObjectId(this._id) }, { $set: {title: this.title, imageUrl: this.imageUrl, price:this.price, description: this.description} });
+            prodDb = db.collection('products').updateOne({ _id: this._id }, { $set: this });
         }
         else {
             //add new product
@@ -58,9 +59,9 @@ export default class Product {
 
     static deleteById(prodId) {
         const db = getDb();
-        db.collection('products').deleteOne({ _id: mongodb.ObjectId(prodId) })
-            .then(product => {
-                console.log(product);
+        return db.collection('products').deleteOne({ _id: mongodb.ObjectId(prodId) })
+            .then(result => {
+                console.log(result);
             })
             .catch(err => {
                 console.log(err);

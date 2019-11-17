@@ -12,6 +12,7 @@ export const mongoConnect = (callback) => {
             _db = client.db();
         })
         .catch(err => {
+            console.log('error connexion');
             throw err;
         });
 };
