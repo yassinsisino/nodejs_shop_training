@@ -1,8 +1,9 @@
 import mongodb from 'mongodb';
+import dotenv from 'dotenv';
 
+const denv = dotenv.config();
 const MongoClient = mongodb.MongoClient;
-const uri = 'mongodb+srv://yassin:Yassin@mongo-cluster-1-molnx.mongodb.net/shop?retryWrites=true&w=majority';
-
+const uri = process.env.URI;
 let _db;
 
 export const mongoConnect = (callback) => {

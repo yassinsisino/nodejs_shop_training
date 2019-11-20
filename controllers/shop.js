@@ -83,12 +83,12 @@ export const postDeleteItem = (req, res, next) => {
 };
 
 export const getOrders = (req, res, next) => {
-    return req.user.getOrders()
+    req.user.getOrders()
         .then(result => {
-            console.log(result);
-            res.render('shop/orders', {
+            return res.render('shop/orders', {
                 pageTitle: 'Your Orders',
-                path: '/orders'
+                path: '/orders',
+                orders: result
             });
         })
         .catch(err => {
@@ -100,7 +100,7 @@ export const postOrder = (req, res, next) => {
     req.user.addOrder()
         .then(result => {
             console.log(result);
-            res.redirect('/');
+            res.redirect('/cart');
         })
         .catch(err => {
             console.log(err);
